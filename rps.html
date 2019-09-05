@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock Paper Scissor</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+
+<body>
+    <div id="head">
+    <h1> Rock Paper Scissor Game!</h1>
+    </div>
+    <div id="chose">
+        <p>You Chose: <span id='uc'></span></p>
+        <p>Opponent Chose: <span id='cc'></span></p>
+    </div>
+
+    <div id="image">
+        <img src="scissor.png" width="200" height="200" data-type="s">
+
+        <img src="rock.png" width="200" height="200" data-type="r">
+
+        <img src="paper.png" width="200" height="200" data-type="p">
+    </div>
+    <div id="scoreBoard">
+    <h3>Score</h3>
+    <p>Wins <span id="wins"></span></p>
+
+    </br>
+    <p>Loss <span id="loss"></span></p>
+
+    </br>
+    <p>Ties <span id="ties"></span></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var wins = 0;
+        var loss = 0;
+        var ties = 0;
+
+        $('#wins').text(wins);
+        $('#loss').text(loss);
+        $('#ties').text(ties);
+
+        var rpsMap = {
+            r: 'rock',
+            p: 'paper',
+            s: 'scissor'
+        }
+
+        $('img').on('click', function () {
+            var userChoice = $(this).attr('data-type');
+            $('#uc').text(rpsMap[userChoice]);
+
+            console.log(userChoice);
+
+            var choices = ['r', 'p', 's'];
+            var ccIndex = Math.floor(Math.random() * choices.length);
+            var cc = choices[ccIndex];
+            $('#cc').text(rpsMap[cc])
+            console.log(cc);
+
+            var userWin = (userChoice == 'r' && cc == 's') || (userChoice == 's' && cc == 'p') || (userChoice == 'p' && cc == 'r');
+
+            if (userChoice == cc) {
+                ties++;
+                $('#ties').text(ties);
+            } else if (userWin) {
+                wins++;
+                $('#wins').text(wins);
+            } else {
+                loss++;
+                $('#loss').text(loss);
+            }
+        })
+    </script>
+
+</body>
+
+</html>
